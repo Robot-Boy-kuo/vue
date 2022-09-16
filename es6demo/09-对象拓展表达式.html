@@ -1,0 +1,13 @@
+<script>
+    //(...)用于取出参数对象所有可遍历属性然后拷贝到当前对象
+    //1.拷贝对象
+        let person1 = { "name": "lucy", "age": 20 }
+        let person2 = { ...person1 }
+        console.log(person2)
+
+        //2.合并对象
+        let name = { name: "jack" }
+        let age = { age: 22 }
+        let p2 = { ...name, ...age }
+        console.log(p2)
+</script>

@@ -1,0 +1,19 @@
+<script>
+    //1.多行字符串  使用`符号实现换行
+    let string1 = `Hey
+    es6 demo?`
+    console.log(string1)
+
+    //2.字符串中插入变量和表达式，变量名写在${}中，${}中可以放入JavaScript表达式
+    let name = "GSK"
+    let age = 22
+    let info = `My name is ${name}, I am ${age + 1} years old next year.`
+    console.log(info)
+
+    //3.字符串中调用函数，在`
+    function f1(){
+        return "hello f1"
+    }
+    let str3 = `demo, ${f1()}`
+    console.log(str3)
+</script>
