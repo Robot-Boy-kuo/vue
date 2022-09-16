@@ -10,7 +10,11 @@
 
 <body>
     <div id="app">
+        <input type="text" v-bind:value="searchMap.keyWord"/>
+        <!-- 双向绑定 -->
+        <input type="text" v-model="searchMap.keyWord"/>
 
+        <p>{{searchMap.keyWord}}</p>
     </div>
    <script src="vue.min.js"></script>
    <script>
