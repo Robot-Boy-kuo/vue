@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Vue中事件绑定 -->
+        <button v-on:click="search()">查询1</button>
+        <!-- 简写方式 -->
+        <button @click="search()">查询2</button>
+    </div>
+   <script src="vue.min.js"></script>
+   <script>
+       new Vue({
+           el: '#app',
+           data: {
+               searchMap: {
+                   keyWord: 'GSK'
+               },
+               //查询结果
+               result:{}
+           },
+           methods:{//定义多个方法
+                search(){
+                    console.log('search...')
+                },
+                f1(){
+                    console.log('f1')
+                }
+           }
+       })
+   </script>
+</body>
+
+</html>
