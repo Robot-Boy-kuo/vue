@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "code": 20000,
+    "message": "成功",
+    "data": {
+        "items": [
+            {
+                "name": "Abo",
+                "age": 20
+            },
+            {
+                "name": "Bob",
+                "age": 22
+            },
+            {
+                "name": "Cindy",
+                "age": 24
+            }
+        ]
+    }
+}
