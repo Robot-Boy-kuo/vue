@@ -20,6 +20,14 @@ export default {
             method: 'delete',
             
         })
+    },
+    //添加讲师
+    addTeacher(teacher) {
+        return request({
+            url: `/eduservice/teacher/addTeadcher`,
+            method: 'post',
+            data:teacher
+        })
     }
 
 }
