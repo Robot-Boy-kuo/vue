@@ -1,7 +1,5 @@
 <template>
     <div class="app-container">
-       
-
         <!--查询表单-->
         <!-- :inline="true"在一行内显示+单向绑定 -->
         <el-form :inline="true" class="demo-form-inline">
@@ -31,7 +29,7 @@
 
 
         <!-- 表格 -->
-        <el-table v-loading="listloading" :data="list" element-loading-text="数据加载中" border fit highlight-current-row>
+        <el-table :data="list" element-loading-text="数据加载中" border fit highlight-current-row>
             
             <el-table-column label="序号" width="70" align="center">
                 <template slot-scope="scope">

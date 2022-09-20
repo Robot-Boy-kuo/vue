@@ -1,6 +1,6 @@
 <template>
     <div class="app-container">
-        讲师添加
+        <!-- 表单页面 -->
         <el-form label-width="120px">
             <el-form-item label="讲师名称">
                 <el-input v-model="teacher.name" />
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-    import teacherApi from '@/api/edu/teacher'
+import teacherApi from '@/api/edu/teacher'
 //import { response } from 'express'
 export default {
     data() {
@@ -48,14 +48,61 @@ export default {
             saveBtnDisabled:false   //保存按钮是否禁用
         }
     },
-    created() {
-        
+    created() {//页面渲染之前执行
+        this.init()
+    },
+    watch: {//监听
+        $route(to, from) {//路由变化方式，路由发生变化，方法执行
+            this.init()
+        }
     },
     methods: {
-        saveOrUpdate() {
-            //添加
-            this.saveTeacher()
+        init() {
+            //判断路径有id值,做修改
+            if (this.$route.params && this.$route.params.id) {
+                //从路径获取id值
+                const id = this.$route.params.id
+                //调用根据id查询的方法
+                this.getInfo(id)
+            } else {//无id值，做添加操作，清空表单
+                this.teacher = {}            
+            }
         },
+
+        //根据讲师id查询的方法
+        getInfo(id) {
+            teacherApi.getTeacherInfo(id)
+                .then(response => {
+                    this.teacher = response.data.teacher
+                })
+        },
+
+        saveOrUpdate() {
+            //判断是修改还是添加
+            //根据teacher是否有id判断
+            if (!this.teacher.id) {
+                //添加
+                this.saveTeacher()
+            } else {
+                //修改
+                this.updateTeacher()
+            }
+            
+        },
+        //修改讲师的方法
+        updateTeacher() {
+            teacherApi.updateTeacherInfo(this.teacher)
+                .then(response => {
+                    //1.提示信息
+                    this.$message({
+                        type: 'success',
+                        message: '修改成功!'
+                    });
+                    //回到列表页面 路由跳转【重定向操作】
+                    this.$router.push({path:'/teacher/table'})
+                })
+        },
+
         //添加讲师的方法
         saveTeacher() {
             teacherApi.addTeacher(this.teacher)
