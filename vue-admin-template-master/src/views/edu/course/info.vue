@@ -110,6 +110,7 @@ export default {
         //点击某个一级分类，触发change，显示二级分类
         //此处的value是框架自动传过来的一级分类id
         subjectLevelOneChanged(value) { 
+            
             //先遍历所有的分类，包含一级和二级
             for (var i = 0; i < this.subjectOneList.length;i++){
                 //得到每个一级分类
@@ -118,6 +119,9 @@ export default {
                 if (value === oneSubject.id) {
                     //从一级分类中获取所有二级分类
                     this.subjectTwoList = oneSubject.children
+
+                    //将二级分类id清空
+                    this.courseInfo.subjectId = ''
                 }
             }
         },
