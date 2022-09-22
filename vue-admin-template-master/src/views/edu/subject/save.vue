@@ -71,7 +71,7 @@ export default {
                 message: '添加课程分类成功'
             })
             //跳转课程列表
-
+            this.$router.push({ path:'/subject/list'})
             
         },
         //上传失败
