@@ -95,6 +95,7 @@ export default {
                 cover: '/static/asuka.jpg',
                 price: 0
             },
+            courseId:'',
             BASE_API: process.env.BASE_API, // 接口API地址
             teacherList: [],//封装所有讲师的数据
             subjectOneList: [],//一级分类
@@ -102,13 +103,28 @@ export default {
             
         }
     },
-    created(){
-        //初始化所有讲师
-        this.getListTeacher()
-        //初始化一级分类
-        this.getOneSubject()
+    created() {
+        //获取路由中的id值
+        if (this.$route.params && this.$route.params.id) {
+            this.courseId = this.$route.params.id
+            //调用根据id查询课程方法
+            this.getInfo()
+        } else {
+            //初始化所有讲师
+            this.getListTeacher()
+            //初始化一级分类
+            this.getOneSubject()
+        }
+        
     },
     methods: {
+        //根据课程id查询信息
+        getInfo() {
+            course.getCourseInfoId(this.courseId)
+                .then(response => {
+                    this.courseInfo = response.data.courseInfoVo
+                })  
+        },
         //上传封面成功
         handleAvatarSuccess(res,url) {
             this.courseInfo.cover = res.data.url
