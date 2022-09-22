@@ -17,13 +17,20 @@
             </el-form-item>
         
             <!-- 所属分类 TODO -->
-
-
-
-
-
-
+            <!-- 所属分类 TODO -->
+            <el-form-item label="课程分类">
+                <el-select v-model="courseInfo.subjectParentId" placeholder="一级分类" @change="subjectLevelOneChanged">
             
+                    <el-option v-for="subject in subjectOneList" :key="subject.id" :label="subject.title" :value="subject.id" />
+            
+                </el-select>
+            
+                <!-- 二级分类 -->
+                <el-select v-model="courseInfo.subjectId" placeholder="二级分类">
+                    <el-option v-for="subject in subjectTwoList" :key="subject.id" :label="subject.title" :value="subject.id" />
+                </el-select>
+            </el-form-item>
+
         
             <!-- 课程讲师 -->
 
@@ -64,6 +71,7 @@
 </template>
 <script>
 import course from '@/api/edu/course'
+import subject from '@/api/edu/subject'
 export default {
     data(){
         return{
@@ -78,14 +86,42 @@ export default {
                 cover: '/static/01.jpg',
                 price: 0
             },
-            teacherList:[]//封装所有讲师的数据
+            teacherList: [],//封装所有讲师的数据
+            subjectOneList: [],//一级分类
+            subjectTwoList:[],//二级分类
+            
         }
     },
     created(){
         //初始化所有讲师
         this.getListTeacher()
+        //初始化一级分类
+        this.getOneSubject()
     },
     methods: {
+        //查询所有一级分类
+        getOneSubject() {
+            subject.getSubjectList()
+                .then(response => { 
+                    this.subjectOneList = response.data.list
+                })
+        },
+
+        //点击某个一级分类，触发change，显示二级分类
+        //此处的value是框架自动传过来的一级分类id
+        subjectLevelOneChanged(value) { 
+            //先遍历所有的分类，包含一级和二级
+            for (var i = 0; i < this.subjectOneList.length;i++){
+                //得到每个一级分类
+                var oneSubject = this.subjectOneList[i]
+                //判断所有一级分类的id和点击的一级分类id是否一样
+                if (value === oneSubject.id) {
+                    //从一级分类中获取所有二级分类
+                    this.subjectTwoList = oneSubject.children
+                }
+            }
+        },
+
         //查询所有讲师
         getListTeacher() { 
             course.getListTeacher()
