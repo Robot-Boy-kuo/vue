@@ -80,6 +80,19 @@
                 </el-form-item>
                 <el-form-item label="上传视频">
                     <!-- TODO -->
+                    <el-upload :on-success="handleVodUploadSuccess" :on-remove="handleVodRemove" :before-remove="beforeVodRemove"
+                        :on-exceed="handleUploadExceed" :file-list="fileList" :action="BASE_API+'/eduvod/video/uploadAliVideo'" :limit="1"
+                        class="upload-demo">
+                        <el-button size="small" type="primary">上传视频</el-button>
+                        <el-tooltip placement="right-end">
+                            <div slot="content">最大支持1G，<br>
+                                支持3GP、ASF、AVI、DAT、DV、FLV、F4V、<br>
+                                GIF、M2T、M4V、MJ2、MJPEG、MKV、MOV、MP4、<br>
+                                MPE、MPG、MPEG、MTS、OGG、QT、RM、RMVB、<br>
+                                SWF、TS、VOB、WMV、WEBM 等视频格式上传</div>
+                            <i class="el-icon-question" />
+                        </el-tooltip>
+                    </el-upload>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -95,6 +108,7 @@
 <script>
 import chapter from '@/api/edu/chapter'
 import video from '@/api/edu/video'
+
 
 export default {
     data() {
@@ -112,11 +126,14 @@ export default {
                 title: '',
                 sort: 0,
                 free: 0,
-                videoSourceId: ''
+                videoSourceId: '',
+                videoOriginName:'',//视频名称
             },
             dialogChapterFormVisible: false,//章节弹窗
             dialogVideoFormVisible: false,//小节弹窗
 
+            fileList: [],//上传文件列表
+            BASE_API: process.env.BASE_API // 接口API地址
         }
     },
     created() {
@@ -128,7 +145,24 @@ export default {
         
     },
     methods: {
+        //上传视频成功调用的方法
+        handleVodUploadSuccess(response, file, fileList) {
+            //上传视频id赋值
+            this.video.videoSourceId = response.data.videoId
+            //上传视频名称赋值
+            this.video.videoOriginName = file.name
+        },
+        //上传视频之前
+        handleUploadExceed() { 
+            this.$message.warning("想要重新上传视频，请先删除已上传的视频")
+        },
+
+        handleVodRemove() { },
+        beforeVodRemove() { },
+
+
         //==============小节操作==============
+        
         //添加小节弹框
         openVideo(chapterId) {
             this.video = {}
