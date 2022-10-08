@@ -49,4 +49,19 @@ export default {
             method: 'post'
         })
     },
+
+    //课程列表
+    //查询所有课程
+    getListCourse() {
+        return request({
+            url: `/eduservice/edu-course`,
+            method: 'get',
+        })
+    },
+    deleteCourse(courseId) {
+        return request({
+            url: `/eduservice/edu-course/${courseId}`,
+            method: 'delete',
+        })
+    }
 }
