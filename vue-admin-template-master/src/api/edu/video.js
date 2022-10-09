@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 export default {
-    
+
     //1.添加小节
     addVideo(video) {
         return request({
@@ -34,6 +34,14 @@ export default {
         return request({
             url: `/eduservice/video/getVideoInfo/${videoId}`,
             method: 'get',
+        })
+    },
+
+    //删除视频
+    deleteAliVideo(id) {
+        return request({
+            url: `/eduvod/video/removeAliVideo/${id}`,
+            method: 'delete',
         })
     },
 

@@ -80,8 +80,14 @@
                 </el-form-item>
                 <el-form-item label="上传视频">
                     <!-- TODO -->
-                    <el-upload :on-success="handleVodUploadSuccess" :on-remove="handleVodRemove" :before-remove="beforeVodRemove"
-                        :on-exceed="handleUploadExceed" :file-list="fileList" :action="BASE_API+'/eduvod/video/uploadAliVideo'" :limit="1"
+                    <el-upload 
+                        :on-success="handleVodUploadSuccess" 
+                        :on-remove="handleVodRemove" 
+                        :before-remove="beforeVodRemove"
+                        :on-exceed="handleUploadExceed" 
+                        :file-list="fileList" 
+                        :action="BASE_API+'/eduvod/video/uploadAliVideo'" 
+                        :limit="1"
                         class="upload-demo">
                         <el-button size="small" type="primary">上传视频</el-button>
                         <el-tooltip placement="right-end">
@@ -127,7 +133,7 @@ export default {
                 sort: 0,
                 free: 0,
                 videoSourceId: '',
-                videoOriginName:'',//视频名称
+                videoOriginalName:'',//视频名称
             },
             dialogChapterFormVisible: false,//章节弹窗
             dialogVideoFormVisible: false,//小节弹窗
@@ -150,15 +156,32 @@ export default {
             //上传视频id赋值
             this.video.videoSourceId = response.data.videoId
             //上传视频名称赋值
-            this.video.videoOriginName = file.name
+            this.video.videoOriginalName = file.name
         },
         //上传视频之前
         handleUploadExceed() { 
             this.$message.warning("想要重新上传视频，请先删除已上传的视频")
         },
-
-        handleVodRemove() { },
-        beforeVodRemove() { },
+        //点击确定调用的方法
+        handleVodRemove(file) {
+            //调用接口删除视频
+            video.deleteAliVideo(this.video.videoSourceId)
+                .then(response => {
+                    this.$message({
+                        type: 'success',
+                        message: '删除视频成功!'
+                    });
+                    //将文件列表清空，不显示上传的文件
+                    this.fileList = []
+                    //删除视频之后对后端数据库相关字段进行清空
+                    this.video.videoSourceId = ''
+                    this.video.videoOriginalName = ''
+                })
+        },
+        //点击×调用的方法
+        beforeVodRemove(file) {
+            return this.$confirm(`确定移除 ${file.name}？`);
+        },
 
 
         //==============小节操作==============
