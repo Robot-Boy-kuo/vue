@@ -58,7 +58,8 @@
             
                 <el-upload :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload"
                     :action="BASE_API+'/eduoss/fileoss'" class="avatar-uploader">
-                    <img :src="courseInfo.cover" width="300px" height:auto>
+                    <img :src="courseInfo.cover" height="300px" width=auto>
+                    
                 </el-upload>
             
             </el-form-item>
@@ -92,7 +93,7 @@ export default {
                 teacherId: '',
                 lessonNum: 0,
                 description: '',
-                cover: '/static/asuka.jpg',
+                cover: "/static/asuka.jpg",
                 price: 0
             },
             courseId:'',
@@ -114,7 +115,16 @@ export default {
             this.getListTeacher()
             //初始化一级分类
             this.getOneSubject()
-            this.courseInfo = {}
+            this.courseInfo = {
+                title: '',
+                subjectId: '',//二级分类id
+                subjectParentId: '',//一级分类id
+                teacherId: '',
+                lessonNum: 0,
+                description: '',
+                cover: "/static/asuka.jpg",
+                price: 0
+            }
         }
         
     },
