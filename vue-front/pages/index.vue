@@ -4,23 +4,10 @@
     <!-- 幻灯片 开始 -->
     <div v-swiper:mySwiper="swiperOption">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" style="background: #040B1B;">
-          <a target="_blank" href="/">
-            <img src="~/assets/photo/banner/1525939573202.jpg" alt="首页">
-          </a>
-        </div>
 
-        <div  class="swiper-slide" style="background: #040B1B;">
-          
-          <a target="_blank" href="/">
-            <img src="~/assets/photo/banner/153525d0ef15459596.jpg" alt="首页">
-          </a>
-          
-        </div>
-
-        <div  class="swiper-slide" style="background: #040B1B;">
-          <a target="_blank" href="/">
-            <img src="~/assets/photo/banner/1525939573202.jpg" alt="首页">
+        <div v-for="banner in bannerList" :key="banner.id" class="swiper-slide" style="background: #040B1B;">
+          <a target="_blank" :href="banner.linkUrl">
+            <img :src="banner.imageUrl" :alt="banner.title">
           </a>
         </div>
         
@@ -123,8 +110,38 @@
 
 <script>
 
+import banner from '@/api/banner'
 
 export default {
+  data() {
+    return {
+      swiperOption: {
+        //配置分页
+        pagination: {
+          el:'.swiper-pagination'//分页的dom节点
+        },
+        //配置导航
+        navigation: {
+          nextEl: '.swiper-button-next',//下一页dom节点
+          prevEl: '.swiper-button-prev',//下一页dom节点
+        },
+        
+      },
+      bannerList: [],
+    }
+  },
+  created() {
+    
+  },
+  methods: {
+    //查询banner数据
+    getBannerList() {
+      banner.getListBanner()
+        .then(response => {
+          this.bannerList = response.data.data.list
+        })
+    },
+  }
   
 }
 </script>
