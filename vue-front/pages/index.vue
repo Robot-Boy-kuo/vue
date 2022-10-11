@@ -10,7 +10,6 @@
             <img :src="banner.imageUrl" :alt="banner.title">
           </a>
         </div>
-        
       </div>
       <div class="swiper-pagination swiper-pagination-white"></div>
       <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
@@ -30,7 +29,7 @@
           <div>
             <article class="comm-course-list">
               <ul class="of" id="bna">
-                <li v-for="course in eduList" :key="course.id">
+                <li v-for="course in courseList" :key="course.id">
                   <div class="cc-l-wrap">
                     <section class="course-img">
                       <img :src="course.cover" class="img-responsive" :alt="course.title">
@@ -46,7 +45,7 @@
                         <i class="c-fff fsize12 f-fA">免费</i>
                       </span>
                       <span class="fl jgAttr c-ccc f-fA">
-                        <i class="c-999 f-fA">9634人学习</i>
+                        <i class="c-999 f-fA">{{course.viewCount}} 人学习</i>
                         |
                         <i class="c-999 f-fA">9634评论</i>
                       </span>
@@ -109,39 +108,52 @@
 </template>
 
 <script>
-
 import banner from '@/api/banner'
+import index from '@/api/index'
 
 export default {
   data() {
     return {
+
       swiperOption: {
         //配置分页
         pagination: {
-          el:'.swiper-pagination'//分页的dom节点
+          el: '.swiper-pagination'//分页的dom节点
         },
         //配置导航
         navigation: {
           nextEl: '.swiper-button-next',//下一页dom节点
-          prevEl: '.swiper-button-prev',//下一页dom节点
-        },
-        
+          prevEl: '.swiper-button-prev'//前一页dom节点
+        }
       },
+      //banner数组
       bannerList: [],
+      courseList: [],
+      teacherList: []
     }
   },
   created() {
-    
+    //调用查询banner的方法
+    this.getBannerList()
+    //调用查询热门课程和名师的方法
+    this.getHotCourseTeacher()
   },
   methods: {
+    //查询热门课程和名师
+    getHotCourseTeacher() {
+      index.getIndexData()
+        .then(response => {
+          this.courseList = response.data.data.courseList
+          this.teacherList = response.data.data.teacherList
+        })
+    },
     //查询banner数据
     getBannerList() {
       banner.getListBanner()
         .then(response => {
           this.bannerList = response.data.data.list
         })
-    },
+    }
   }
-  
 }
 </script>
