@@ -27,7 +27,7 @@
             </router-link>
           </ul>
           <!-- / nav -->
-          <ul class="h-r-login">
+          <ul class="h-r-login" >
             <li v-if="!loginInfo.id" id="no-login">
               <a href="/login" title="登录">
                 <em class="icon18 login-icon">&nbsp;</em>
@@ -47,7 +47,7 @@
             <li v-if="loginInfo.id" id="is-login-two" class="h-r-user">
               <a href="/ucenter" title>
                 <img :src="loginInfo.avatar" width="30" height="30" class="vam picImg" alt>
-                <span id="userName" class="vam disIb" >{{ loginInfo.nickname }}</span>
+                <span id="userName" class="vam disIb">{{ loginInfo.nickname }}</span>
               </a>
               <a href="javascript:void(0);" title="退出" @click="logout()" class="ml5">退出</a>
             </li>
