@@ -12,7 +12,7 @@
                 <el-form-item class="input-prepend restyle" prop="nickname"
                     :rules="[{ required: true, message: '请输入昵称', trigger: 'blur' }]">
                     <div>
-                        <el-input type="text" placeholder="你的昵称" v-model="params.nickname" />
+                        <el-input type="text" placeholder="昵称" v-model="params.nickname" />
                         <i class="iconfont icon-user" />
                     </div>
                 </el-form-item>

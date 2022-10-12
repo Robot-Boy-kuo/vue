@@ -47,21 +47,47 @@
 <script>
 import '~/assets/css/sign.css'
 import '~/assets/css/iconfont.css'
+import cookie from 'js-cookie'
+import loginApi from '@/api/login'
 
 export default {
     layout: 'sign',
 
     data() {
         return {
+            //封装登录用到的手机号和密码
             user: {
                 mobile: '',
                 password: ''
             },
+            //用户信息
             loginInfo: {}
         }
     },
 
     methods: {
+        submitLogin() { 
+            //第一步：调用接口进行登录，返回token字符串
+            loginApi.submitLoginUser(this.user)
+                .then(response => {
+                    //第二步：获取token字符串并放到cookie中
+                    // cookie也是key-value结构，[key,value,domain(作用范围)]
+                    // domain：表明在什么样的请求中才会传递
+                    cookie.set('guli_token', response.data.data.token, { domain: 'localhost' })
+
+                    //第四步 调用接口，根据token获取用户信息
+                    loginApi.getLoginUserInfo()
+                        .then(response => {
+                            this.loginInfo = response.data.data.userInfo
+                            
+                            //获取返回的用户信息，放入cookie
+                            cookie.set('guli_ucenter', JSON.stringify(this.loginInfo), { domain: 'localhost' })
+
+                            //跳转到首页
+                            window.location.href = "/";
+                        })
+            })
+        },
 
         checkPhone(rule, value, callback) {
             //debugger
