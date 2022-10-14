@@ -51,7 +51,7 @@
               <li v-for="course in courseList" :key="course.id">
                 <div class="cc-l-wrap">
                   <section class="course-img">
-                    <img :src="course.cover" class="img-responsive" >
+                    <img :src="course.cover" class="img-responsive" style="width:260px;height:140px;object-fit: cover;">
                     <div class="cc-mask">
                       <a href="#" title="开始学习" target="_blank" class="comm-btn c-btn-1">开始学习</a>
                     </div>
