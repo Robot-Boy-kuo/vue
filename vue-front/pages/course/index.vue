@@ -31,8 +31,8 @@
             </dt>
             <dd class="c-s-dl-li">
               <ul class="clearfix">
-                <li v-for="(item,index) in subSubjectList" :key="index">
-                  <a :title="item.title" href="#">{{item.title}}</a>
+                <li v-for="(item,index) in subSubjectList" :key="index" :class="{active:twoIndex==index}">
+                  <a :title="item.title" href="#" @click="searchTwo(item.id, index)">{{item.title}}</a>
                 </li>
                 
               </ul>
@@ -197,7 +197,16 @@ export default {
         }
       }
 
-    }
+    },
+    //5 点击某个二级分类实现查询
+    searchTwo(subjectId,index) {
+      //将indx赋值，为了样式能够显示
+      this.twoIndex = index
+      //把二级分类点击id值赋值给searchObj
+      this.searchObj.subjectId = subjectId
+      this.gotoPage(1)
+
+    },
 
   }
 
