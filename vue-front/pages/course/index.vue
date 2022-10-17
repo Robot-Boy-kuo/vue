@@ -18,8 +18,8 @@
                 <li>
                   <a title="全部" href="#">全部</a>
                 </li>
-                <li v-for="(item,index) in subjectNestedList" :key="index">
-                  <a :title="item.title" href="#">{{item.title}}</a>
+                <li v-for="(item,index) in subjectNestedList" :key="index" :class="{active:oneIndex==index}">
+                  <a :title="item.title" href="#" @click="searchOne(item.id,index)">{{item.title}}</a>
                 </li>
                 
               </ul>
@@ -172,6 +172,31 @@ export default {
         .then(response => {
           this.data = response.data.data
         })
+    },
+    //4 点击某个一级分类查询出对应的二级分类
+    searchOne(subjectParentId, index) {
+      //实现点击样式的改变，利用index
+      //将传递的index赋值给oneIndex
+      this.oneIndex = index
+      this.twoIndex = -1
+      this.searchObj.subjectId = ""
+      this.subSubjectList = []
+      //实现点击某个一级分类实现条件查询
+      //把点击的一级分类id值，赋值给searchObj
+      this.searchObj.subjectParentId = subjectParentId
+      this.gotoPage(1)
+      //用已经点击的id和所有的一级分类id进行比较
+      //id相同时从对应的一级分类获取二级分类
+      for (let i = 0; i < this.subjectNestedList.length; i++){
+        //获取全体一级分类
+        var oneSubject = this.subjectNestedList[i]
+        //比较id是否相同
+        if (subjectParentId == oneSubject.id) {
+          //从一级分类中获取二级分类
+          this.subSubjectList = oneSubject.children
+        }
+      }
+
     }
 
   }
@@ -180,3 +205,14 @@ export default {
   
 }
 </script>
+<style scoped>
+.active{
+  background: #bdbdbd;
+}
+.hide{
+  display: none;
+}
+.show{
+  display: block;
+}
+</style>
