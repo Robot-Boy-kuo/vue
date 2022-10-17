@@ -84,11 +84,11 @@
                     <a href="/course/1" :title="item.title" class="course-title fsize18 c-333">{{item.title}}</a>
                   </h3>
                   <section class="mt10 hLh20 of">
-                    <span class="fr jgTag bg-green">
+                    <span class="fr jgTag bg-green"  v-if="Number(item.price) === 0">
                       <i class="c-fff fsize12 f-fA">免费</i>
                     </span>
                     <span class="fl jgAttr c-ccc f-fA">
-                      <i class="c-999 f-fA">9634人学习</i>
+                      <i class="c-999 f-fA">{{item.buyCount}}人学习</i>
                       |
                       <i class="c-999 f-fA">9634评论</i>
                     </span>
