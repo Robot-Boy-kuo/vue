@@ -84,11 +84,11 @@
                   <section class="course-img">
                     <img :src="item.cover" class="img-responsive" :alt="item.title" style="width:260px;height:140px;object-fit: cover;">
                     <div class="cc-mask">
-                      <a href="/course/1" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
+                      <a :href="'/course/'+item.id"  title="开始学习" class="comm-btn c-btn-1">开始学习</a>
                     </div>
                   </section>
                   <h3 class="hLh30 txtOf mt10">
-                    <a href="/course/1" :title="item.title" class="course-title fsize18 c-333">{{item.title}}</a>
+                    <a :href="'/course/'+item.id" :title="item.title" class="course-title fsize18 c-333">{{item.title}}</a>
                   </h3>
                   <section class="mt10 hLh20 of">
                     <span class="fr jgTag bg-green"  v-if="Number(item.price) === 0">
