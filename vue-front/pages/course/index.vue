@@ -49,17 +49,24 @@
           </section>
           <section class="fl">
             <ol class="js-tap clearfix">
-              <li>
-                <a title="关注度" href="#">关注度</a>
-              </li>
-              <li>
-                <a title="最新" href="#">最新</a>
-              </li>
-              <li class="current bg-orange">
-                <a title="价格" href="#">价格&nbsp;
-                  <span>↓</span>
+              <li :class="{'current bg-orange' :buyCountSort!=''}">
+                <a title="销量" href="javascript:void(0);" @click="searchBuyCount()">销量
+                <span :class="{hide:buyCountSort==''}">⭣</span>
                 </a>
               </li>
+
+              <li :class="{'current bg-orange' :gmtCreateSort!=''}">
+                <a title="最新" href="javascript:void(0);" @click="searchGmtCreate()">最新
+                  <span :class="{hide:gmtCreateSort==''}">⭣</span>
+                </a>
+              </li>
+
+              <li :class="{'current bg-orange' :priceSort!=''}">
+                <a title="价格" href="javascript:void(0);" @click="searchPrice()">价格&nbsp;
+                  <span :class="{hide:priceSort==''}">⭣</span>
+                </a>
+              </li>
+
             </ol>
           </section>
         </div>
@@ -207,6 +214,48 @@ export default {
       this.gotoPage(1)
 
     },
+
+    //6 根据销量进行排序
+    searchBuyCount() { 
+      //设置对应变量中的值，为了样式生效
+      this.buyCountSort = "1"
+      this.gmtCreateSort = ""
+      this.priceSort = ""
+      //把值赋值到searchObj中
+      this.searchObj.buyCountSort = this.buyCountSort
+      this.searchObj.gmtCreateSort = this.gmtCreateSort
+      this.searchObj.priceSort = this.priceSort
+      //调用方法进行查询
+      this.gotoPage(1)
+    },
+
+    //7 根据最新时间进行排序
+    searchGmtCreate() {
+      //设置对应变量中的值，为了样式生效
+      this.buyCountSort = ""
+      this.gmtCreateSort = "1"
+      this.priceSort = ""
+      //把值赋值到searchObj中
+      this.searchObj.buyCountSort = this.buyCountSort
+      this.searchObj.gmtCreateSort = this.gmtCreateSort
+      this.searchObj.priceSort = this.priceSort
+      //调用方法进行查询
+      this.gotoPage(1)
+    },
+
+    //8 价格排序
+    searchPrice() { 
+      //设置对应变量中的值，为了样式生效
+      this.buyCountSort = ""
+      this.gmtCreateSort = ""
+      this.priceSort = "1"
+      //把值赋值到searchObj中
+      this.searchObj.buyCountSort = this.buyCountSort
+      this.searchObj.gmtCreateSort = this.gmtCreateSort
+      this.searchObj.priceSort = this.priceSort
+      //调用方法进行查询
+      this.gotoPage(1)
+    }
 
   }
 
