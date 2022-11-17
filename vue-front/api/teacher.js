@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-export default {
+export default  {
     //分页讲师查询
     getTeacherList(page, limit) {
         return request({

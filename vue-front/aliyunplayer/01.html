@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 阿里云视频播放器样式 -->
+    <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.8.1/skins/default/aliplayer-min.css" >
+    <!-- 阿里云视频播放器脚本 -->
+    <script charset="utf-8" type="text/javascript" src="https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min.js" />
+</head>
+<body>
+    <div class="prism-player" id="J_prismPlayer"></div>
+    <script>
+        var player = new Aliplayer({
+            id:"J_prismPlayer",
+            width:'100%',
+            autoplay:false,
+            cover:'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png',
+            //根据视频地址进行播放配置
+            source:'https://outin-ef98da8c46cf11edb0c400163e1c94a4.oss-cn-shanghai.aliyuncs.com/sv/3ea5b3a5-183ba33d303/3ea5b3a5-183ba33d303.mp4?Expires=1668503634&OSSAccessKeyId=LTAI3DkxtsbUyNYV&Signature=Op6%2FJFQfBX78Zwi1V%2BWSsKg1yNU%3D'
+        },function(player){
+            console.log('播放器创建好了')
+        });
+    </script>
+    
+</body>
+</html>
